@@ -1,0 +1,48 @@
+# Python
+backend/__pycache__/
+backend/*.pyc
+backend/.venv/
+backend/venv/
+backend/*.egg-info/
+backend/dist/
+backend/build/
+backend/.pytest_cache/
+
+# Node / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/frontend-dist/
+frontend/.vite/
+
+# Environment
+backend/.env
+.env
+
+# Database
+backend/cannabis_tracker.db
+backend/*.sqlite
+backend/*.sqlite3
+
+# Uploads
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Docker
+docker-compose.override.yml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+#Python env
+bin/
+pyvenv.cfg
+lib/
+include/
+
+# OS
+.DS_Store
+Thumbs.db

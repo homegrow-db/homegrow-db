@@ -1,0 +1,12 @@
+.git
+node_modules
+__pycache__
+*.pyc
+.env
+.venv
+lib
+bin
+include
+pyvenv.cfg
+data
+uploads
