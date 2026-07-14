@@ -27,7 +27,7 @@ export function deleteStrain(id: string) {
 
 export function getStrainImageUrl(id: string) {
   const token = localStorage.getItem("token");
-  return `http://localhost:8000/strains/${id}/image?token=${token}`;
+  return `/strains/${id}/image?token=${token}`;
 }
 
 export function uploadStrainImage(id: string, file: File) {

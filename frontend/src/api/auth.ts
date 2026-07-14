@@ -28,7 +28,7 @@ export function updateProfile(data: {
 
 export function getAvatarUrl() {
   const token = localStorage.getItem("token");
-  return `http://localhost:8000/auth/me/avatar?token=${token}`;
+  return `/auth/me/avatar?token=${token}`;
 }
 
 export function uploadAvatar(file: File) {
