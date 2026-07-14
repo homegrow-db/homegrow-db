@@ -2,6 +2,8 @@
 
 Cannabis Grow & Seed Tracker – Document your strains, seeds, and grows with images, a weekly journal, and harvest tracking.
 
+See -> https://homegrow-db.netlify.app
+
 ## Features
 
 - **Strain Management** – Name, breeder, genetics, effects, aroma, THC/CBD, flowering time
