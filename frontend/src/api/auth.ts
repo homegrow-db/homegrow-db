@@ -21,6 +21,7 @@ export function updateProfile(data: {
   email?: string;
   username?: string;
   password?: string;
+  language?: string;
 }) {
   return api.put<User>("/auth/me", data);
 }

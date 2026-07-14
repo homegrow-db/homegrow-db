@@ -52,7 +52,7 @@ export default function Strains() {
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState("name");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const load = useCallback(async (q: string, sb: string, so: "asc" | "desc") => {
     try {

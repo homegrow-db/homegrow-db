@@ -45,7 +45,7 @@ export default function Seeds() {
   const [editQuantity, setEditQuantity] = useState(1);
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("desc");
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const load = useCallback(async (search?: string) => {
     try {

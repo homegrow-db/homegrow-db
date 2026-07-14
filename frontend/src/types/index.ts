@@ -6,6 +6,7 @@ export interface User {
   is_superuser: boolean;
   avatar_path: string | null;
   totp_enabled: boolean;
+  language: string;
   created_at: string;
 }
 

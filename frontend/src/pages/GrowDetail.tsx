@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -368,9 +368,9 @@ export default function GrowDetail() {
     setError("");
     try {
       const h = await createGrowHarvest(id, {
-        harvest_date: harvestForm.harvest_date || null,
+        harvest_date: harvestForm.harvest_date || undefined,
         weight: harvestForm.weight ? parseFloat(harvestForm.weight) : null,
-        notes: harvestForm.notes || null,
+        notes: harvestForm.notes || undefined,
       });
       for (const file of newHarvestFiles) {
         await uploadGrowHarvestImage(id, file);
@@ -395,9 +395,9 @@ export default function GrowDetail() {
     setError("");
     try {
       const h = await updateGrowHarvest(id, {
-        harvest_date: harvestForm.harvest_date || null,
+        harvest_date: harvestForm.harvest_date || undefined,
         weight: harvestForm.weight ? parseFloat(harvestForm.weight) : null,
-        notes: harvestForm.notes || null,
+        notes: harvestForm.notes || undefined,
       });
       setHarvest(h);
       setShowHarvestForm(false);

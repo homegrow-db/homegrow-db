@@ -83,7 +83,6 @@ export default function Layout() {
               key={item.path}
               to={item.path}
               className={location.pathname === item.path ? "active" : ""}
-              end
             >
               <span className="sidebar-nav-icon">{item.icon}</span>
               {item.label}
