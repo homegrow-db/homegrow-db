@@ -66,7 +66,7 @@ export default function StrainDetail() {
     setUploading(true); setError("");
     try {
       await uploadStrainImage(id, file);
-      const url = getStrainImageUrl(id);
+      const url = `${getStrainImageUrl(id)}&t=${Date.now()}`;
       setImageUrl(url);
       setImageError(false);
     } catch (e: unknown) {

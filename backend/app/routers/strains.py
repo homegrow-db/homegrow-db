@@ -198,4 +198,4 @@ async def get_strain_image(
     if not file_path.exists():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Image file not found on disk")
 
-    return FileResponse(path=str(file_path), media_type=image.mime_type, filename=image.file_name)
+    return FileResponse(path=str(file_path), media_type=image.mime_type, filename=image.file_name, headers={"Cache-Control": "no-cache, no-store, must-revalidate"})
