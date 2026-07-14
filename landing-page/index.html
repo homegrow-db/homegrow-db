@@ -404,6 +404,7 @@
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#screenshots">Screenshots</a>
+      <a href="#quickstart">Quick Start</a>
       <a href="#privacy">Privacy</a>
       <a href="https://github.com/homegrow-db/homegrow-db" class="nav-cta" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -637,6 +638,47 @@
         <h3>No Tracking</h3>
         <p>No analytics, no cookies, no third-party services. Just you and your data.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<section id="quickstart" style="background:#0e0e10;">
+  <div class="container">
+    <span class="section-label">Quick Start</span>
+    <h2 class="section-title">Get started in minutes</h2>
+    <p class="section-sub">Just create a <code style="background:rgba(255,255,255,0.07);padding:2px 8px;border-radius:4px;">docker-compose.yml</code> and run <code style="background:rgba(255,255,255,0.07);padding:2px 8px;border-radius:4px;">docker compose up -d</code>.</p>
+    <div style="margin-top: 40px; background: #0a0a0b; border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; overflow: hidden;">
+      <div style="display:flex;align-items:center;gap:6px;padding:10px 16px;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);">
+        <span style="width:10px;height:10px;border-radius:50%;background:#ef4444;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#eab308;"></span>
+        <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;"></span>
+        <span style="font-size:0.75rem;color:#71717a;margin-left:8px;">docker-compose.yml</span>
+      </div>
+      <pre style="padding:20px;margin:0;overflow-x:auto;font-size:0.8rem;line-height:1.6;color:#e4e4e7;"><code style="font-family:'Fira Code','JetBrains Mono','Cascadia Code',monospace;">services:
+  backend:
+    image: ghcr.io/homegrow-db/homegrow-db/backend:latest
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-CHANGE_ME_TO_A_SECURE_RANDOM_KEY}
+      - DATABASE_URL=sqlite+aiosqlite:////app/data/cannabis_tracker.db
+      - IMAGE_STORAGE_PATH=/app/uploads
+    volumes:
+      - app_data:/app/data
+      - app_uploads:/app/uploads
+    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/homegrow-db/homegrow-db/frontend:latest
+    ports:
+      - "80:80"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  app_data:
+  app_uploads:</code></pre>
     </div>
   </div>
 </section>
