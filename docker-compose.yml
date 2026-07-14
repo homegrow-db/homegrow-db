@@ -1,17 +1,25 @@
 services:
-  app:
+  backend:
     build: .
-    ports:
-      - "8000:8000"
     environment:
       - SECRET_KEY=${SECRET_KEY:-CHANGE_ME_TO_A_SECURE_RANDOM_KEY}
       - DATABASE_URL=sqlite+aiosqlite:////app/data/cannabis_tracker.db
       - IMAGE_STORAGE_PATH=/app/uploads
     volumes:
       - app_data:/app/data
-      # For direct filesystem access to uploads, replace the line below with:
-      # - ./uploads:/app/uploads
       - app_uploads:/app/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
     restart: unless-stopped
 
 volumes:
