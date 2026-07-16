@@ -57,11 +57,18 @@ export const api = {
       headers,
       body: formData,
     });
-    const data = await resp.json();
     if (!resp.ok) {
-      const msg = data.detail || `Upload failed (${resp.status})`;
+      let msg = `Upload failed (${resp.status})`;
+      try {
+        const body = await resp.json();
+        if (body.detail) msg = body.detail;
+      } catch {
+        const text = await resp.text().catch(() => "");
+        if (text) msg = text.slice(0, 200);
+      }
       throw new Error(msg);
     }
+    const data = await resp.json();
     return data as T;
   },
 };
