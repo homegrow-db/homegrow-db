@@ -17,6 +17,7 @@ from app.auth import (
     verify_totp,
 )
 from app.config import settings
+from app.utils.image import convert_heic_to_png
 from app.crud import (
     count_users,
     create_user,
@@ -168,6 +169,8 @@ async def upload_avatar(
             detail=f"Unsupported file type. Allowed: {ALLOWED_MIME_TYPES}",
         )
     contents = await file.read()
+    mime_type = file.content_type
+    contents, mime_type = convert_heic_to_png(contents, mime_type)
     if len(contents) > MAX_AVATAR_SIZE:
         raise HTTPException(
             status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
@@ -182,7 +185,7 @@ async def upload_avatar(
         if old.exists():
             old.unlink()
 
-    ext = os.path.splitext(file.filename or "avatar.jpg")[1] or ".jpg"
+    ext = ".png" if file.content_type in ("image/heic", "image/heif") else (os.path.splitext(file.filename or "avatar.jpg")[1] or ".jpg")
     stored_name = f"avatar{ext}"
     file_path = upload_dir / stored_name
     file_path.write_bytes(contents)

@@ -7,6 +7,7 @@ from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
+from app.utils.image import convert_heic_to_png
 from app.crud import (
     count_grows,
     create_grow,
@@ -441,6 +442,8 @@ async def _save_image(
             detail=f"Unsupported file type: {file.content_type}. Allowed: {ALLOWED_MIME_TYPES}",
         )
     contents = await file.read()
+    mime_type = file.content_type
+    contents, mime_type = convert_heic_to_png(contents, mime_type)
     if len(contents) > MAX_IMAGE_SIZE:
         raise HTTPException(
             status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
@@ -451,7 +454,7 @@ async def _save_image(
     upload_dir.mkdir(parents=True, exist_ok=True)
 
     file_id = uuid.uuid4()
-    ext = os.path.splitext(file.filename or "image.jpg")[1] or ".jpg"
+    ext = ".png" if file.content_type in ("image/heic", "image/heif") else (os.path.splitext(file.filename or "image.jpg")[1] or ".jpg")
     stored_name = f"{file_id}{ext}"
     file_path = upload_dir / stored_name
 
@@ -463,7 +466,7 @@ async def _save_image(
         file_path=str(file_path),
         file_name=file.filename or stored_name,
         file_size=len(contents),
-        mime_type=file.content_type,
+        mime_type=mime_type,
         grow_id=grow_id,
         grow_event_id=grow_event_id,
         grow_week_id=grow_week_id,
