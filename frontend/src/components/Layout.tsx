@@ -45,6 +45,7 @@ export default function Layout() {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navItems = [
     { path: "/", label: t("nav.dashboard"), icon: "\u{1F3E0}" },
@@ -59,18 +60,30 @@ export default function Layout() {
     navigate("/login");
   };
 
+  const isActive = (path: string) => {
+    if (path === "/") return location.pathname === "/";
+    return location.pathname.startsWith(path);
+  };
+
   if (!user) return null;
 
   return (
     <div className="app-layout">
-      <aside className="sidebar">
-        <div className="sidebar-brand">
-          <h2>
-            <span className="brand-icon">{'\u262E'}</span>
-            Homegrow DB
-          </h2>
+      <div className={`sidebar-overlay ${sidebarOpen ? "active" : ""}`} onClick={() => setSidebarOpen(false)} />
+
+      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <div className="sidebar-header-row">
+          <div className="sidebar-brand">
+            <h2>
+              <span className="brand-icon">{'\u262E'}</span>
+              Homegrow DB
+            </h2>
+          </div>
+          <button className="sidebar-close" onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+            &times;
+          </button>
         </div>
-        <Link to="/profile" className="sidebar-user" style={{ textDecoration: "none", color: "inherit" }}>
+        <Link to="/profile" className="sidebar-user" style={{ textDecoration: "none", color: "inherit" }} onClick={() => setSidebarOpen(false)}>
           <UserAvatar email={user.email} username={user.username} avatarPath={user.avatar_path} />
           <div className="sidebar-user-info">
             <div className="sidebar-user-name">{user.username}</div>
@@ -82,7 +95,8 @@ export default function Layout() {
             <Link
               key={item.path}
               to={item.path}
-              className={location.pathname === item.path ? "active" : ""}
+              className={isActive(item.path) ? "active" : ""}
+              onClick={() => setSidebarOpen(false)}
             >
               <span className="sidebar-nav-icon">{item.icon}</span>
               {item.label}
@@ -90,11 +104,11 @@ export default function Layout() {
           ))}
         </nav>
         <div className="sidebar-footer">
-          <Link to="/profile" className={location.pathname === "/profile" ? "active" : ""}>
+          <Link to="/profile" className={isActive("/profile") ? "active" : ""} onClick={() => setSidebarOpen(false)}>
             <span className="sidebar-nav-icon">&#9881;</span>
             {t("nav.profile")}
           </Link>
-          <button onClick={toggleTheme} title={theme === "dark" ? t("nav.light_theme") : t("nav.dark_theme")}>
+          <button onClick={() => { toggleTheme(); setSidebarOpen(false); }} title={theme === "dark" ? t("nav.light_theme") : t("nav.dark_theme")}>
             <span className="sidebar-nav-icon">{theme === "dark" ? "\u2600" : "\u263E"}</span>
             {theme === "dark" ? t("nav.light_theme") : t("nav.dark_theme")}
           </button>
@@ -105,11 +119,32 @@ export default function Layout() {
         </div>
         <HelpButton />
       </aside>
+
       <div className="main-content">
+        <header className="main-header">
+          <button className="hamburger" onClick={() => setSidebarOpen(true)} aria-label="Open menu">
+            <span /><span /><span />
+          </button>
+          <h1>{navItems.find((i) => isActive(i.path))?.label || t("nav.profile")}</h1>
+          <div />
+        </header>
         <main className="main-body">
           <Outlet />
         </main>
       </div>
+
+      <nav className="bottom-nav">
+        {navItems.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`bottom-nav-item ${isActive(item.path) ? "active" : ""}`}
+          >
+            <span className="bottom-nav-icon">{item.icon}</span>
+            <span className="bottom-nav-label">{item.label}</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }

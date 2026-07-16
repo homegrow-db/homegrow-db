@@ -54,7 +54,7 @@ from app.schemas import (
 
 router = APIRouter(prefix="/grows", tags=["Grows"])
 
-ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"}
 MAX_IMAGE_SIZE = 20 * 1024 * 1024
 
 

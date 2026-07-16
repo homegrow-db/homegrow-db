@@ -26,7 +26,7 @@ from app.schemas import GrowImageResponse, PaginatedResponse, StrainCreate, Stra
 
 router = APIRouter(prefix="/strains", tags=["Strains"])
 
-ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"}
 MAX_IMAGE_SIZE = 20 * 1024 * 1024
 
 

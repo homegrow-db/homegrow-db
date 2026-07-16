@@ -44,7 +44,7 @@ from app.schemas import (
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
-ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif"}
+ALLOWED_MIME_TYPES = {"image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "image/heif"}
 MAX_AVATAR_SIZE = 5 * 1024 * 1024
 
 
