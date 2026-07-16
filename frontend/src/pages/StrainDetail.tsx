@@ -56,7 +56,7 @@ export default function StrainDetail() {
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -70,7 +70,7 @@ export default function StrainDetail() {
       setImageUrl(url);
       setImageError(false);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Upload fehlgeschlagen");
+      setError(e instanceof Error ? e.message : t("common.upload_failed"));
     } finally {
       setUploading(false);
     }
@@ -103,11 +103,11 @@ export default function StrainDetail() {
             <div className="detail-grid">
               <div className="form-row">
                 <label className="label">{t("strains.breeder")}</label>
-                <input className="input" value={form.breeder} onChange={(e) => setForm({ ...form, breeder: e.target.value })} placeholder="z.B. DJ Short" />
+                <input className="input" value={form.breeder} onChange={(e) => setForm({ ...form, breeder: e.target.value })} placeholder={t("strains.breeder_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("strains.genetics")}</label>
-                <input className="input" value={form.genetics} onChange={(e) => setForm({ ...form, genetics: e.target.value })} placeholder="z.B. Sativa / Indica / Hybrid" />
+                <input className="input" value={form.genetics} onChange={(e) => setForm({ ...form, genetics: e.target.value })} placeholder={t("strains.genetics_placeholder")} />
               </div>
             </div>
           </div>
@@ -117,16 +117,16 @@ export default function StrainDetail() {
             <div className="detail-grid">
               <div className="form-row">
                 <label className="label">{t("strains.genetic_origin")}</label>
-                <textarea className="textarea" value={form.genetic_origin} onChange={(e) => setForm({ ...form, genetic_origin: e.target.value })} placeholder="z.B. Blueberry x Haze" rows={3} />
+                <textarea className="textarea" value={form.genetic_origin} onChange={(e) => setForm({ ...form, genetic_origin: e.target.value })} placeholder={t("strains.genetic_origin_placeholder")} rows={3} />
               </div>
               <div className="form-row">
                 <label className="label">{t("strains.aroma")}</label>
-                <textarea className="textarea" value={form.aroma} onChange={(e) => setForm({ ...form, aroma: e.target.value })} placeholder="z.B. fruchtig, erdig, kiefern" rows={3} />
+                <textarea className="textarea" value={form.aroma} onChange={(e) => setForm({ ...form, aroma: e.target.value })} placeholder={t("strains.aroma_placeholder")} rows={3} />
               </div>
             </div>
             <div className="form-row">
               <label className="label">{t("strains.effects")}</label>
-              <textarea className="textarea" value={form.effects} onChange={(e) => setForm({ ...form, effects: e.target.value })} placeholder="z.B. euphorisch, entspannend, kreativ" rows={3} />
+              <textarea className="textarea" value={form.effects} onChange={(e) => setForm({ ...form, effects: e.target.value })} placeholder={t("strains.effects_placeholder")} rows={3} />
             </div>
           </div>
 
@@ -135,21 +135,21 @@ export default function StrainDetail() {
             <div className="detail-grid">
               <div className="form-row">
                 <label className="label">{t("strains.thc")}</label>
-                <input className="input" type="number" step="0.1" min="0" max="100" value={form.thc_content} onChange={(e) => setForm({ ...form, thc_content: e.target.value })} placeholder="z.B. 21" />
+                <input className="input" type="number" step="0.1" min="0" max="100" value={form.thc_content} onChange={(e) => setForm({ ...form, thc_content: e.target.value })} placeholder={t("strains.thc_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("strains.cbd")}</label>
-                <input className="input" type="number" step="0.1" min="0" max="100" value={form.cbd_content} onChange={(e) => setForm({ ...form, cbd_content: e.target.value })} placeholder="z.B. 0.5" />
+                <input className="input" type="number" step="0.1" min="0" max="100" value={form.cbd_content} onChange={(e) => setForm({ ...form, cbd_content: e.target.value })} placeholder={t("strains.cbd_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("strains.flowering_weeks")}</label>
-                <input className="input" type="number" min="1" value={form.flowering_weeks} onChange={(e) => setForm({ ...form, flowering_weeks: e.target.value })} placeholder="z.B. 8" />
+                <input className="input" type="number" min="1" value={form.flowering_weeks} onChange={(e) => setForm({ ...form, flowering_weeks: e.target.value })} placeholder={t("strains.flowering_weeks_placeholder")} />
               </div>
               <div></div>
             </div>
             <div className="form-row">
               <label className="label">{t("strains.description")}</label>
-              <textarea className="textarea" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder="Notizen zum Strain..." rows={3} />
+              <textarea className="textarea" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} placeholder={t("strains.description_placeholder")} rows={3} />
             </div>
           </div>
         </div>

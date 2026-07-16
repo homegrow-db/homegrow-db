@@ -255,7 +255,7 @@ export default function GrowDetail() {
         // strain might be deleted
       }
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   }, [id]);
 
@@ -279,7 +279,7 @@ export default function GrowDetail() {
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -307,7 +307,7 @@ export default function GrowDetail() {
       setWeeks(w);
       setImages(imgs);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -347,7 +347,7 @@ export default function GrowDetail() {
       const w = await getGrowWeeks(id);
       setWeeks(w);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -358,7 +358,7 @@ export default function GrowDetail() {
       const w = await getGrowWeeks(id);
       setWeeks(w);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -386,7 +386,7 @@ export default function GrowDetail() {
       const imgs = await getGrowImages(id);
       setImages(imgs);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -402,7 +402,7 @@ export default function GrowDetail() {
       setHarvest(h);
       setShowHarvestForm(false);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -413,7 +413,7 @@ export default function GrowDetail() {
       setHarvest(null);
       setHarvestForm(emptyHarvestForm);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -427,7 +427,7 @@ export default function GrowDetail() {
       const imgs = await getGrowImages(id);
       setImages(imgs);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Upload fehlgeschlagen");
+      setError(e instanceof Error ? e.message : t("common.upload_failed"));
     } finally {
       setUploadingWeekId(null);
     }
@@ -443,7 +443,7 @@ export default function GrowDetail() {
       const imgs = await getGrowImages(id);
       setImages(imgs);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Upload fehlgeschlagen");
+      setError(e instanceof Error ? e.message : t("common.upload_failed"));
     } finally {
       setUploadingHarvest(false);
     }
@@ -512,15 +512,15 @@ export default function GrowDetail() {
           </div>
           <div className="form-row">
             <label className="label">{t("grows.medium")}</label>
-            <input className="input" value={growForm.medium} onChange={(e) => setGrowForm({ ...growForm, medium: e.target.value })} placeholder="z.B. Erde, Hydro, Coco" />
+            <input className="input" value={growForm.medium} onChange={(e) => setGrowForm({ ...growForm, medium: e.target.value })} placeholder={t("grows.medium_placeholder")} />
           </div>
           <div className="form-row">
             <label className="label">{t("grows.lighting")}</label>
-            <input className="input" value={growForm.lighting} onChange={(e) => setGrowForm({ ...growForm, lighting: e.target.value })} placeholder="z.B. LED 300W" />
+            <input className="input" value={growForm.lighting} onChange={(e) => setGrowForm({ ...growForm, lighting: e.target.value })} placeholder={t("grows.lighting_placeholder")} />
           </div>
           <div className="form-row">
             <label className="label">{t("grows.nutrients")}</label>
-            <input className="input" value={growForm.nutrients} onChange={(e) => setGrowForm({ ...growForm, nutrients: e.target.value })} placeholder="D\u00FCnger / Schema" />
+            <input className="input" value={growForm.nutrients} onChange={(e) => setGrowForm({ ...growForm, nutrients: e.target.value })} placeholder={t("grows.nutrients_placeholder")} />
           </div>
         </div>
         <div className="form-row">
@@ -568,28 +568,28 @@ export default function GrowDetail() {
               </div>
               <div className="form-row">
                 <label className="label">{t("grows.fertilizer")}</label>
-                <input className="input" value={newWeekForm.fertilizer}
-                  onChange={(e) => setNewWeekForm({ ...newWeekForm, fertilizer: e.target.value })} placeholder="z.B. 3ml/L BioBizz" />
+                  <input className="input" value={newWeekForm.fertilizer}
+                  onChange={(e) => setNewWeekForm({ ...newWeekForm, fertilizer: e.target.value })} placeholder={t("grows.fertilizer_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("grows.watering")}</label>
                 <input className="input" value={newWeekForm.watering}
-                  onChange={(e) => setNewWeekForm({ ...newWeekForm, watering: e.target.value })} placeholder="z.B. 2L alle 2 Tage" />
+                  onChange={(e) => setNewWeekForm({ ...newWeekForm, watering: e.target.value })} placeholder={t("grows.watering_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("grows.light_intensity")}</label>
                 <input className="input" value={newWeekForm.light_intensity}
-                  onChange={(e) => setNewWeekForm({ ...newWeekForm, light_intensity: e.target.value })} placeholder="z.B. 100%" />
+                  onChange={(e) => setNewWeekForm({ ...newWeekForm, light_intensity: e.target.value })} placeholder={t("grows.light_intensity_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("grows.light_cycle")}</label>
                 <input className="input" value={newWeekForm.light_cycle}
-                  onChange={(e) => setNewWeekForm({ ...newWeekForm, light_cycle: e.target.value })} placeholder="z.B. 18/6" />
+                  onChange={(e) => setNewWeekForm({ ...newWeekForm, light_cycle: e.target.value })} placeholder={t("grows.light_cycle_placeholder")} />
               </div>
               <div className="form-row">
                 <label className="label">{t("grows.temperature")}</label>
                 <input className="input" value={newWeekForm.temperature}
-                  onChange={(e) => setNewWeekForm({ ...newWeekForm, temperature: e.target.value })} placeholder="z.B. 24\u00B0C" />
+                  onChange={(e) => setNewWeekForm({ ...newWeekForm, temperature: e.target.value })} placeholder={t("grows.temperature_placeholder")} />
               </div>
             </div>
             <div className="form-row">

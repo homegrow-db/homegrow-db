@@ -54,7 +54,7 @@ export default function Seeds() {
       setTotal(s.total);
       setStrains(st.items);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   }, [sortBy, sortOrder]);
 
@@ -82,7 +82,7 @@ export default function Seeds() {
       setForm({ strain_id: "", quantity: 1 });
       await refresh();
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -99,7 +99,7 @@ export default function Seeds() {
       setEditId(null);
       await refresh();
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -113,7 +113,7 @@ export default function Seeds() {
       await deleteSeed(deleteTarget);
       await refresh();
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     } finally {
       setDeleteTarget(null);
     }

@@ -49,7 +49,7 @@ export default function Profile() {
       setPassword("");
       setTimeout(() => setSaved(false), 2000);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -76,7 +76,7 @@ export default function Profile() {
       const result = await setupTotp();
       setTotpSetup(result);
     } catch (e: unknown) {
-      setTotpMessage(e instanceof Error ? e.message : "Fehler");
+      setTotpMessage(e instanceof Error ? e.message : t("common.error"));
     } finally {
       setTotpLoading(false);
     }
@@ -107,7 +107,7 @@ export default function Profile() {
       setDisablePassword("");
       setTotpMessage(t("profile.2fa_deactivated_msg"));
     } catch (e: unknown) {
-      setTotpMessage(e instanceof Error ? e.message : "Fehler");
+      setTotpMessage(e instanceof Error ? e.message : t("common.error"));
     } finally {
       setTotpLoading(false);
     }
@@ -180,7 +180,7 @@ export default function Profile() {
             </p>
             <div className="form-row">
               <label className="label">{t("profile.new_password")}</label>
-              <input className="input" type="password" value={password} placeholder="mind. 8 Zeichen" onChange={(e) => setPassword(e.target.value)} />
+              <input className="input" type="password" value={password} placeholder={t("profile.password_placeholder")} onChange={(e) => setPassword(e.target.value)} />
             </div>
           </div>
 

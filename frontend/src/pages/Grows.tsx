@@ -30,7 +30,7 @@ export default function Grows() {
         setTotal(g.total);
         setStrains(st.items);
       } catch (e: unknown) {
-        setError(e instanceof Error ? e.message : "Fehler");
+        setError(e instanceof Error ? e.message : t("common.error"));
       }
     },
     []
@@ -45,7 +45,7 @@ export default function Grows() {
       setForm({ strain_id: "", name: "", start_date: "" });
       await load(statusFilter);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -59,7 +59,7 @@ export default function Grows() {
       await deleteGrow(deleteTarget);
       await load(statusFilter);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     } finally {
       setDeleteTarget(null);
     }
@@ -84,7 +84,7 @@ export default function Grows() {
       setGalleryImages(imgs);
       setGalleryGrowId(growId);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     } finally {
       setGalleryLoading(false);
     }

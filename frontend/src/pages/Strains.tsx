@@ -60,7 +60,7 @@ export default function Strains() {
       setStrains(data.items);
       setTotal(data.total);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   }, []);
 
@@ -90,7 +90,7 @@ export default function Strains() {
       setName("");
       await load(search, sortBy, sortOrder);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     }
   };
 
@@ -104,7 +104,7 @@ export default function Strains() {
       await deleteStrain(deleteTarget);
       await load(search, sortBy, sortOrder);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Fehler");
+      setError(e instanceof Error ? e.message : t("common.error"));
     } finally {
       setDeleteTarget(null);
     }
