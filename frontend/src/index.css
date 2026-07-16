@@ -846,6 +846,7 @@ tbody tr:hover { background: var(--green-50); }
 
 /* ─── Detail Page ─── */
 .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.detail-layout { display: flex; gap: 24px; align-items: flex-start; }
 .detail-field { margin-bottom: 4px; }
 .detail-field .label { margin-bottom: 2px; }
 .detail-field .value { font-size: 1rem; color: var(--neutral-800); font-weight: 450; }
@@ -1278,6 +1279,8 @@ dialog.modal-overlay::backdrop {
   .auth-card .auth-card .logo-icon { width: 48px; height: 48px; font-size: 24px; }
 
   .detail-grid { grid-template-columns: 1fr; }
+  .detail-layout { flex-direction: column; }
+  .detail-layout .form-card:last-child { width: 100% !important; }
 
   .inline-form { flex-direction: column; align-items: stretch; }
   .inline-form .input, .inline-form .select { width: 100%; }

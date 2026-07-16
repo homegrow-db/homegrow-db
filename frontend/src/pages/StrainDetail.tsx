@@ -96,7 +96,7 @@ export default function StrainDetail() {
       </div>
       {error && <div className="alert alert-error">{error}</div>}
 
-      <div style={{ display: "flex", gap: 24, alignItems: "flex-start" }}>
+      <div className="detail-layout">
         <div style={{ flex: 1 }}>
           <div className="form-card">
             <h2 style={{ marginBottom: 16 }}>{t("strains.general_info")}</h2>
