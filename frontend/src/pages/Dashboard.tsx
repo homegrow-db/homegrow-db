@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { getStrains } from "../api/strains";
-import { getSeeds } from "../api/seeds";
+import { getSeedTotalQuantity } from "../api/seeds";
 import { getGrows, getGrowCoverUrl } from "../api/grows";
 import { globalSearch } from "../api/search";
 import type { SearchResults } from "../api/search";
@@ -19,10 +19,10 @@ export default function Dashboard() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    Promise.all([getStrains(0, 1), getSeeds({ skip: 0, limit: 1 }), getGrows(undefined, 0, 1), getGrows("ongoing"), getStrains(0, 500)])
-      .then(([s, se, g, ag, st]) => {
+    Promise.all([getStrains(0, 1), getSeedTotalQuantity(), getGrows(undefined, 0, 1), getGrows("ongoing"), getStrains(0, 500)])
+      .then(([s, sq, g, ag, st]) => {
         setStrainCount(s.total);
-        setSeedCount(se.total);
+        setSeedCount(sq.total_quantity);
         setGrowCount(g.total);
         setActiveGrows(ag.items);
         setStrains(st.items);

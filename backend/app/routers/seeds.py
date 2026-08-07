@@ -10,6 +10,7 @@ from app.crud import (
     get_seed,
     get_seeds,
     get_strain,
+    sum_seed_quantities,
     update_seed,
 )
 from app.database import get_db
@@ -37,6 +38,15 @@ async def list_seeds(
     )
     total = await count_seeds(db, user_id=current_user.id, strain_id=strain_id, search=search)
     return PaginatedResponse(items=items, total=total, skip=skip, limit=limit)
+
+
+@router.get("/stats/total-quantity")
+async def seed_total_quantity(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    total = await sum_seed_quantities(db, user_id=current_user.id)
+    return {"total_quantity": total}
 
 
 @router.post("", response_model=SeedResponse, status_code=status.HTTP_201_CREATED)

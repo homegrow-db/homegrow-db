@@ -229,6 +229,13 @@ async def count_seeds(
     return result.scalar() or 0
 
 
+async def sum_seed_quantities(db: AsyncSession, user_id: uuid.UUID) -> int:
+    result = await db.execute(
+        select(func.coalesce(func.sum(Seed.quantity), 0)).where(Seed.user_id == user_id)
+    )
+    return result.scalar() or 0
+
+
 async def get_seed(db: AsyncSession, seed_id: uuid.UUID, user_id: uuid.UUID) -> Seed | None:
     result = await db.execute(
         select(Seed).where(Seed.id == seed_id, Seed.user_id == user_id)

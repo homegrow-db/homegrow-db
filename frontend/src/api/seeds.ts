@@ -16,6 +16,10 @@ export function getSeed(id: string) {
   return api.get<Seed>(`/seeds/${id}`);
 }
 
+export function getSeedTotalQuantity() {
+  return api.get<{ total_quantity: number }>("/seeds/stats/total-quantity");
+}
+
 export function createSeed(data: Partial<Seed>) {
   return api.post<Seed>("/seeds", data);
 }
