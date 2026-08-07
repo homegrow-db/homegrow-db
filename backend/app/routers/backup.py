@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.backup import BackupValidationError, build_backup, restore_backup
 from app.database import get_db
-from app.dependencies import get_current_user
+from app.dependencies import get_current_superuser
 from app.models import User
 
 router = APIRouter(prefix="/backup", tags=["Backup"])
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/backup", tags=["Backup"])
 @router.get("/export")
 async def export_backup(
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_superuser),
 ):
     content = await build_backup(db, current_user)
     filename = f"homegrow-backup-{datetime.date.today().isoformat()}.zip"
@@ -30,7 +30,7 @@ async def export_backup(
 async def import_backup(
     file: UploadFile,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(get_current_superuser),
 ):
     if file.content_type not in ("application/zip", "application/x-zip-compressed", "application/octet-stream"):
         raise HTTPException(

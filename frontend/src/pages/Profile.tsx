@@ -307,6 +307,7 @@ export default function Profile() {
             )}
           </div>
 
+          {user.is_superuser && (
           <div className="form-card">
             <h2 style={{ marginBottom: 16 }}>{t("profile.backup_section")}</h2>
             {backupMessage && <div style={{ color: "var(--green-600)", marginBottom: 12, fontSize: "0.9rem" }}>{backupMessage}</div>}
@@ -326,6 +327,7 @@ export default function Profile() {
               {t("profile.backup_import_hint")}
             </p>
           </div>
+        )}
         </div>
 
         <div className="form-card" style={{ width: 300, flexShrink: 0 }}>
