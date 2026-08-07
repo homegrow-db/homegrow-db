@@ -10,6 +10,7 @@ from app.config import settings
 from app.utils.image import convert_heic_to_png
 from app.crud import (
     count_strains,
+    clear_strain_primary_images,
     create_grow_image,
     create_strain,
     delete_strain,
@@ -156,6 +157,8 @@ async def upload_strain_image(
     stored_name = f"{file_id}{ext}"
     file_path = upload_dir / stored_name
     file_path.write_bytes(contents)
+
+    await clear_strain_primary_images(db, strain_id=strain_id, user_id=current_user.id)
 
     image = await create_grow_image(
         db,

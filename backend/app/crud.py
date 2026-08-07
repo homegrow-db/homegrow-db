@@ -409,6 +409,21 @@ async def get_strain_primary_image(
     return result.scalar_one_or_none()
 
 
+async def clear_strain_primary_images(
+    db: AsyncSession, strain_id: uuid.UUID, user_id: uuid.UUID
+) -> None:
+    images = await db.execute(
+        select(GrowImage).where(
+            GrowImage.strain_id == strain_id,
+            GrowImage.user_id == user_id,
+            GrowImage.is_primary == True,
+        )
+    )
+    for image in images.scalars():
+        image.is_primary = False
+    await db.flush()
+
+
 async def get_grow_image_by_id(
     db: AsyncSession, image_id: uuid.UUID, user_id: uuid.UUID
 ) -> GrowImage | None:
