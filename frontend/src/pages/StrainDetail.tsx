@@ -85,7 +85,7 @@ export default function StrainDetail() {
     <div>
       <div className="page-header">
         <div>
-          <button className="btn btn-secondary btn-sm" onClick={() => navigate("/strains")} style={{ marginBottom: 8 }}>
+          <button className="btn btn-secondary btn-sm" onClick={() => navigate(`/strains/${id}`)} style={{ marginBottom: 8 }}>
             &larr; {t("common.back")}
           </button>
           <h1>{strain.name}</h1>

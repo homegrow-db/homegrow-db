@@ -213,7 +213,7 @@ export default function Strains() {
                     ) : "-"}
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>
-                    <Link to={`/strains/${s.id}`} className="btn-icon" title={t("common.edit")}>&#9998;</Link>
+                    <Link to={`/strains/${s.id}/edit`} className="btn-icon" title={t("common.edit")}>&#9998;</Link>
                     <button className="btn-icon btn-icon-danger" onClick={() => handleDelete(s.id)} title={t("common.delete")}>&#128465;</button>
                   </td>
                 </tr>

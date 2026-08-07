@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Strains from "./pages/Strains";
 import StrainDetail from "./pages/StrainDetail";
+import StrainView from "./pages/StrainView";
 import Seeds from "./pages/Seeds";
 import Grows from "./pages/Grows";
 import GrowDetail from "./pages/GrowDetail";
@@ -36,7 +37,8 @@ function AppRoutes() {
       >
         <Route index element={<Dashboard />} />
         <Route path="strains" element={<Strains />} />
-        <Route path="strains/:id" element={<StrainDetail />} />
+        <Route path="strains/:id" element={<StrainView />} />
+        <Route path="strains/:id/edit" element={<StrainDetail />} />
         <Route path="seeds" element={<Seeds />} />
         <Route path="grows" element={<Grows />} />
         <Route path="grows/:id" element={<GrowDetail />} />
