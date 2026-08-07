@@ -91,7 +91,20 @@
     "2fa_deactivate_btn": "2FA deaktivieren",
     "2fa_activated_msg": "2FA aktiviert",
     "2fa_deactivated_msg": "2FA deaktiviert",
-    "password_placeholder": "mind. 8 Zeichen"
+    "password_placeholder": "mind. 8 Zeichen",
+    "backup_section": "Backup",
+    "backup_desc": "Exportiere alle Daten und Bilder als ZIP-Datei oder stelle sie aus einem Backup wieder her.",
+    "backup_export_btn": "Backup exportieren (ZIP)",
+    "backup_import_btn": "Backup importieren",
+    "backup_import_hint": "Achtung: Ein Import ersetzt alle vorhandenen Daten und Bilder.",
+    "backup_import_confirm_title": "Daten ersetzen?",
+    "backup_import_confirm_body": "Beim Import werden alle aktuellen Daten und Bilder durch die Inhalte des Backups ersetzt. Fortfahren?",
+    "backup_import_confirm_ok": "Importieren",
+    "backup_import_cancel": "Abbrechen",
+    "backup_exported": "Backup erfolgreich exportiert.",
+    "backup_imported": "Backup erfolgreich wiederhergestellt: {{strains}} Strains, {{seeds}} Samen, {{grows}} Grows, {{images}} Bilder.",
+    "backup_error": "Export fehlgeschlagen.",
+    "backup_error_import": "Import fehlgeschlagen. Stelle sicher, dass du eine gültige Backup-Datei ausgewählt hast."
   },
   "strains": {
     "title": "Strains",

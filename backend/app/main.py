@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from app.database import Base, engine
-from app.routers import auth, grows, search, seeds, strains
+from app.routers import auth, backup, grows, search, seeds, strains
 
 app = FastAPI(
     title="Cannabis Grow & Seed Tracker",
@@ -22,6 +22,7 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
+app.include_router(backup.router)
 app.include_router(strains.router)
 app.include_router(seeds.router)
 app.include_router(grows.router)

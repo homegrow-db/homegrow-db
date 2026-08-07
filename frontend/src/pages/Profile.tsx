@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { disableTotp, enableTotp, getAvatarUrl, getRegistrationStatus, getTotpStatus, setRegistrationStatus, setupTotp, updateProfile, uploadAvatar } from "../api/auth";
+import { downloadBlob, exportBackup, importBackup } from "../api/backup";
 import type { TotpSetup } from "../types";
+import ConfirmModal from "../components/ConfirmModal";
 
 export default function Profile() {
   const { t, i18n } = useTranslation();
@@ -23,6 +25,10 @@ export default function Profile() {
   const [disablePassword, setDisablePassword] = useState("");
   const [regOpen, setRegOpen] = useState(true);
   const [regLoading, setRegLoading] = useState(false);
+
+  const [backupBusy, setBackupBusy] = useState(false);
+  const [backupMessage, setBackupMessage] = useState("");
+  const [pendingImport, setPendingImport] = useState<File | null>(null);
 
   useEffect(() => {
     getTotpStatus().then((s) => setTotpEnabled(s.totp_enabled)).catch(() => {});
@@ -132,6 +138,48 @@ export default function Profile() {
       setUser(updated);
     } catch {
       // ignore
+    }
+  };
+
+  const handleExport = async () => {
+    setBackupBusy(true);
+    setBackupMessage("");
+    try {
+      const blob = await exportBackup();
+      const date = new Date().toISOString().slice(0, 10);
+      downloadBlob(blob, `homegrow-backup-${date}.zip`);
+      setBackupMessage(t("profile.backup_exported"));
+    } catch (e: unknown) {
+      setBackupMessage(t("profile.backup_error"));
+    } finally {
+      setBackupBusy(false);
+    }
+  };
+
+  const handleImportSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPendingImport(file);
+    e.target.value = "";
+  };
+
+  const handleImportConfirm = async () => {
+    if (!pendingImport) return;
+    setPendingImport(null);
+    setBackupBusy(true);
+    setBackupMessage("");
+    try {
+      const res = await importBackup(pendingImport);
+      setBackupMessage(t("profile.backup_imported", {
+        strains: res.counts.strains,
+        seeds: res.counts.seeds,
+        grows: res.counts.grows,
+        images: res.counts.grow_images,
+      }));
+    } catch (e: unknown) {
+      setBackupMessage(t("profile.backup_error_import"));
+    } finally {
+      setBackupBusy(false);
     }
   };
 
@@ -258,6 +306,26 @@ export default function Profile() {
               </div>
             )}
           </div>
+
+          <div className="form-card">
+            <h2 style={{ marginBottom: 16 }}>{t("profile.backup_section")}</h2>
+            {backupMessage && <div style={{ color: "var(--green-600)", marginBottom: 12, fontSize: "0.9rem" }}>{backupMessage}</div>}
+            <p style={{ fontSize: "0.85rem", color: "var(--neutral-500)", marginBottom: 12 }}>
+              {t("profile.backup_desc")}
+            </p>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <button className="btn btn-secondary" onClick={handleExport} disabled={backupBusy}>
+                {backupBusy ? t("common.loading") : t("profile.backup_export_btn")}
+              </button>
+              <label className="btn btn-secondary" style={{ cursor: "pointer" }}>
+                {t("profile.backup_import_btn")}
+                <input type="file" accept=".zip,application/zip" onChange={handleImportSelect} style={{ display: "none" }} disabled={backupBusy} />
+              </label>
+            </div>
+            <p style={{ fontSize: "0.8rem", color: "var(--neutral-400)", marginTop: 10 }}>
+              {t("profile.backup_import_hint")}
+            </p>
+          </div>
         </div>
 
         <div className="form-card" style={{ width: 300, flexShrink: 0 }}>
@@ -275,6 +343,16 @@ export default function Profile() {
           </label>
         </div>
       </div>
+
+      <ConfirmModal
+        open={pendingImport !== null}
+        title={t("profile.backup_import_confirm_title")}
+        message={t("profile.backup_import_confirm_body")}
+        confirmLabel={t("profile.backup_import_confirm_ok")}
+        cancelLabel={t("profile.backup_import_cancel")}
+        onConfirm={handleImportConfirm}
+        onCancel={() => setPendingImport(null)}
+      />
     </div>
   );
 }
