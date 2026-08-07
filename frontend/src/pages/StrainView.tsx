@@ -11,6 +11,7 @@ export default function StrainView() {
   const [error, setError] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [imageError, setImageError] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -20,6 +21,15 @@ export default function StrainView() {
       .then(setStrain)
       .catch((e: Error) => setError(e.message));
   }, [id]);
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightboxOpen]);
 
   const show = (value: string | number | null | undefined) =>
     value != null && value !== "" ? String(value) : "-";
@@ -110,7 +120,9 @@ export default function StrainView() {
               src={imageUrl}
               alt={strain.name}
               onError={() => setImageError(true)}
-              style={{ width: "100%", borderRadius: "var(--radius-sm)" }}
+              onClick={() => setLightboxOpen(true)}
+              title={t("strains.image_zoom")}
+              style={{ width: "100%", borderRadius: "var(--radius-sm)", cursor: "zoom-in" }}
             />
           ) : (
             <div
@@ -125,6 +137,13 @@ export default function StrainView() {
           )}
         </div>
       </div>
+
+      {lightboxOpen && (
+        <div className="lightbox-overlay" onClick={() => setLightboxOpen(false)}>
+          <button className="lightbox-close" onClick={() => setLightboxOpen(false)}>&times;</button>
+          <img src={imageUrl ?? undefined} alt={strain.name} onClick={(e) => e.stopPropagation()} className="lightbox-image" />
+        </div>
+      )}
     </div>
   );
 }

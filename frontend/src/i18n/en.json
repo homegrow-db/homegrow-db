@@ -149,7 +149,8 @@
     "thc_placeholder": "e.g. 21",
     "cbd_placeholder": "e.g. 0.5",
     "flowering_weeks_placeholder": "e.g. 8",
-    "description_placeholder": "Notes about the strain..."
+    "description_placeholder": "Notes about the strain...",
+    "image_zoom": "Zoom"
   },
   "seeds": {
     "title": "Seeds",
