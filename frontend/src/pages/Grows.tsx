@@ -214,7 +214,7 @@ export default function Grows() {
                   {!imgErrors[g.id] && (
                     <div className="grow-tile-img">
                       <img
-                        src={getGrowCoverUrl(g.id)}
+                        src={getGrowCoverUrl(g.id, "thumb")}
                         alt=""
                         onError={() => setImgErrors((prev) => ({ ...prev, [g.id]: true }))}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
@@ -267,7 +267,7 @@ export default function Grows() {
             ) : (
               <div className="image-grid" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))" }}>
                 {galleryImages.map((img) => (
-                  <img key={img.id} src={getGrowImageUrl(img.id)} alt={img.file_name}
+                  <img key={img.id} src={getGrowImageUrl(img.id, "thumb")} alt={img.file_name}
                     className="image-grid-thumb"
                     onClick={() => setGalleryLightbox(img)}
                     style={{ aspectRatio: "auto", height: 160 }} />

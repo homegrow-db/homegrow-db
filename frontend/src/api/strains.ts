@@ -25,9 +25,10 @@ export function deleteStrain(id: string) {
   return api.delete<void>(`/strains/${id}`);
 }
 
-export function getStrainImageUrl(id: string) {
+export function getStrainImageUrl(id: string, size?: "thumb") {
   const token = localStorage.getItem("token");
-  return `/strains/${id}/image?token=${token}`;
+  const suffix = size ? `&size=${size}` : "";
+  return `/strains/${id}/image?token=${token}${suffix}`;
 }
 
 export function uploadStrainImage(id: string, file: File) {

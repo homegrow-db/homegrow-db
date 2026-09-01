@@ -35,7 +35,7 @@ export default function StrainDetail() {
 
   useEffect(() => {
     if (!id) return;
-    const url = getStrainImageUrl(id);
+    const url = getStrainImageUrl(id, "thumb");
     setImageUrl(url);
     setImageError(false);
   }, [id]);

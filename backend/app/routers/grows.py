@@ -391,10 +391,12 @@ async def list_grow_images(
 @router.get("/{grow_id}/cover")
 async def get_grow_cover(
     grow_id: uuid.UUID,
+    size: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     from app.crud import get_grow_cover_image as _get_cover
+    from app.utils.image import get_or_create_thumbnail
 
     grow = await get_grow(db, grow_id=grow_id, user_id=current_user.id)
     if not grow:
@@ -405,16 +407,28 @@ async def get_grow_cover(
     file_path = Path(image.file_path)
     if not file_path.exists():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="File not found")
-    return FileResponse(path=str(file_path), media_type=image.mime_type, filename=image.file_name)
+
+    if size == "thumb":
+        thumb_path = get_or_create_thumbnail(file_path)
+        if thumb_path and thumb_path.exists():
+            return FileResponse(
+                path=str(thumb_path),
+                media_type="image/jpeg",
+                headers={"Cache-Control": "no-cache"},
+            )
+
+    return FileResponse(path=str(file_path), media_type=image.mime_type, filename=image.file_name, headers={"Cache-Control": "no-cache"})
 
 
 @router.get("/images/{image_id}", include_in_schema=False)
 async def get_grow_image_by_id(
     image_id: uuid.UUID,
+    size: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
     from app.crud import get_grow_image_by_id as _get_image
+    from app.utils.image import get_or_create_thumbnail
 
     image = await _get_image(db, image_id=image_id, user_id=current_user.id)
     if not image:
@@ -422,7 +436,22 @@ async def get_grow_image_by_id(
     file_path = Path(image.file_path)
     if not file_path.exists():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="File not found")
-    return FileResponse(path=str(file_path), media_type=image.mime_type, filename=image.file_name)
+
+    if size == "thumb":
+        thumb_path = get_or_create_thumbnail(file_path)
+        if thumb_path and thumb_path.exists():
+            return FileResponse(
+                path=str(thumb_path),
+                media_type="image/jpeg",
+                headers={"Cache-Control": "public, max-age=31536000, immutable"},
+            )
+
+    return FileResponse(
+        path=str(file_path),
+        media_type=image.mime_type,
+        filename=image.file_name,
+        headers={"Cache-Control": "public, max-age=31536000, immutable"},
+    )
 
 
 async def _save_image(

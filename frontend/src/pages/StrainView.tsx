@@ -9,13 +9,15 @@ export default function StrainView() {
   const navigate = useNavigate();
   const [strain, setStrain] = useState<any>(null);
   const [error, setError] = useState("");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [thumbUrl, setThumbUrl] = useState<string | null>(null);
+  const [fullUrl, setFullUrl] = useState<string | null>(null);
   const [imageError, setImageError] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   useEffect(() => {
     if (!id) return;
-    setImageUrl(getStrainImageUrl(id));
+    setThumbUrl(getStrainImageUrl(id, "thumb"));
+    setFullUrl(getStrainImageUrl(id));
     setImageError(false);
     getStrain(id)
       .then(setStrain)
@@ -115,9 +117,9 @@ export default function StrainView() {
 
         <div className="form-card" style={{ width: 300, flexShrink: 0 }}>
           <h2 style={{ marginBottom: 16 }}>{t("strains.images_gallery")}</h2>
-          {imageUrl && !imageError ? (
+          {thumbUrl && !imageError ? (
             <img
-              src={imageUrl}
+              src={thumbUrl}
               alt={strain.name}
               onError={() => setImageError(true)}
               onClick={() => setLightboxOpen(true)}
@@ -141,7 +143,7 @@ export default function StrainView() {
       {lightboxOpen && (
         <div className="lightbox-overlay" onClick={() => setLightboxOpen(false)}>
           <button className="lightbox-close" onClick={() => setLightboxOpen(false)}>&times;</button>
-          <img src={imageUrl ?? undefined} alt={strain.name} onClick={(e) => e.stopPropagation()} className="lightbox-image" />
+          <img src={fullUrl ?? undefined} alt={strain.name} onClick={(e) => e.stopPropagation()} className="lightbox-image" />
         </div>
       )}
     </div>

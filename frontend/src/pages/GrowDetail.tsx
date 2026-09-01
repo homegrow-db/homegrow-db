@@ -532,7 +532,7 @@ export default function GrowDetail() {
       {images.length > 0 && (
         <div className="form-card" style={{ padding: 0, overflow: "hidden" }}>
           <div className="cover-image">
-            <img src={getGrowImageUrl(images[0].id)} alt=""
+            <img src={getGrowImageUrl(images[0].id, "thumb")} alt=""
               onClick={() => setLightboxImage(images[0])}
               style={{ width: "100%", display: "block", cursor: "pointer" }} />
           </div>
@@ -540,7 +540,7 @@ export default function GrowDetail() {
             <div style={{ padding: 12 }}>
               <div className="image-grid">
                 {images.slice(1).map((img) => (
-                  <img key={img.id} src={getGrowImageUrl(img.id)} alt=""
+                  <img key={img.id} src={getGrowImageUrl(img.id, "thumb")} alt=""
                     onClick={() => setLightboxImage(img)}
                     className="image-grid-thumb" />
                 ))}
@@ -683,7 +683,7 @@ export default function GrowDetail() {
                 {weekImages(week.id).length > 0 && (
                   <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
                     {weekImages(week.id).map((img) => (
-                      <img key={img.id} src={getGrowImageUrl(img.id)}
+                      <img key={img.id} src={getGrowImageUrl(img.id, "thumb")}
                         alt={img.file_name} style={{ width: 80, height: 80, objectFit: "cover", borderRadius: "var(--radius-sm)" }} />
                     ))}
                   </div>
@@ -784,7 +784,7 @@ export default function GrowDetail() {
           <h2 style={{ marginBottom: 16 }}>{t("grows.gallery")}</h2>
           <div className="image-grid">
             {images.map((img) => (
-              <img key={img.id} src={getGrowImageUrl(img.id)} alt={img.file_name}
+              <img key={img.id} src={getGrowImageUrl(img.id, "thumb")} alt={img.file_name}
                 onClick={() => setLightboxImage(img)}
                 className="image-grid-thumb" />
             ))}

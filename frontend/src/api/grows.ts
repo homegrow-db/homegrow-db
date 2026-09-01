@@ -79,12 +79,14 @@ export function getGrowImages(growId: string) {
   return api.get<GrowImage[]>(`/grows/${growId}/images`);
 }
 
-export function getGrowImageUrl(imageId: string) {
+export function getGrowImageUrl(imageId: string, size?: "thumb") {
   const token = localStorage.getItem("token");
-  return `/grows/images/${imageId}?token=${token}`;
+  const suffix = size ? `&size=${size}` : "";
+  return `/grows/images/${imageId}?token=${token}${suffix}`;
 }
 
-export function getGrowCoverUrl(growId: string) {
+export function getGrowCoverUrl(growId: string, size?: "thumb") {
   const token = localStorage.getItem("token");
-  return `/grows/${growId}/cover?token=${token}`;
+  const suffix = size ? `&size=${size}` : "";
+  return `/grows/${growId}/cover?token=${token}${suffix}`;
 }

@@ -189,6 +189,7 @@ async def upload_strain_image(
 @router.get("/{strain_id}/image")
 async def get_strain_image(
     strain_id: uuid.UUID,
+    size: str | None = Query(None),
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -203,5 +204,16 @@ async def get_strain_image(
     file_path = Path(image.file_path)
     if not file_path.exists():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Image file not found on disk")
+
+    if size == "thumb":
+        from app.utils.image import get_or_create_thumbnail
+
+        thumb_path = get_or_create_thumbnail(file_path)
+        if thumb_path and thumb_path.exists():
+            return FileResponse(
+                path=str(thumb_path),
+                media_type="image/jpeg",
+                headers={"Cache-Control": "no-cache, no-store, must-revalidate"},
+            )
 
     return FileResponse(path=str(file_path), media_type=image.mime_type, filename=image.file_name, headers={"Cache-Control": "no-cache, no-store, must-revalidate"})

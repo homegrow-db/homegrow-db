@@ -179,7 +179,7 @@ export default function Dashboard() {
                   {!imgErrors[g.id] && (
                     <div className="grow-tile-img">
                       <img
-                        src={getGrowCoverUrl(g.id)}
+                        src={getGrowCoverUrl(g.id, "thumb")}
                         alt=""
                         onError={() => setImgErrors((prev) => ({ ...prev, [g.id]: true }))}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}

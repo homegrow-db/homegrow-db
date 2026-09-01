@@ -7,7 +7,7 @@ import ConfirmModal from "../components/ConfirmModal";
 
 function StrainTile({ strain }: { strain: Strain }) {
   const [imgError, setImgError] = useState(false);
-  const imgUrl = getStrainImageUrl(strain.id);
+  const imgUrl = getStrainImageUrl(strain.id, "thumb");
 
   return (
     <div className="strain-tile">
