@@ -1,7 +1,7 @@
 from io import BytesIO
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 HEIC_TYPES = {"image/heic", "image/heif"}
 
@@ -19,11 +19,12 @@ def convert_heic_to_png(contents: bytes, mime_type: str) -> tuple[bytes, str]:
 
 
 def get_or_create_thumbnail(file_path: Path, max_size: int = THUMBNAIL_MAX_SIZE) -> Path | None:
-    thumb_path = file_path.with_name(f"{file_path.stem}_thumb.jpg")
+    thumb_path = file_path.with_name(f"{file_path.stem}_t{max_size}.jpg")
     try:
         if thumb_path.exists() and thumb_path.stat().st_mtime >= file_path.stat().st_mtime:
             return thumb_path
         with Image.open(file_path) as img:
+            img = ImageOps.exif_transpose(img)
             img.thumbnail((max_size, max_size))
             if img.mode not in ("RGB", "L"):
                 img = img.convert("RGB")
