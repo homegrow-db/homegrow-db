@@ -150,7 +150,8 @@
     "cbd_placeholder": "e.g. 0.5",
     "flowering_weeks_placeholder": "e.g. 8",
     "description_placeholder": "Notes about the strain...",
-    "image_zoom": "Zoom"
+    "image_zoom": "Zoom",
+    "export_pdf": "Export PDF"
   },
   "seeds": {
     "title": "Seeds",
