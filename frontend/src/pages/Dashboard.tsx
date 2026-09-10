@@ -7,6 +7,7 @@ import { getGrows, getGrowCoverUrl } from "../api/grows";
 import { globalSearch } from "../api/search";
 import type { SearchResults } from "../api/search";
 import type { Grow, Strain } from "../types";
+import GrowProgress from "../components/GrowProgress";
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -195,6 +196,7 @@ export default function Dashboard() {
                     <div className="meta">
                       {g.start_date}{g.end_date ? ` - ${g.end_date}` : ""}
                     </div>
+                    <GrowProgress grow={g} />
                     {(g.medium || g.lighting) && (
                       <div className="meta" style={{ color: "var(--neutral-500)" }}>
                         {[g.medium, g.lighting].filter(Boolean).join(" \u00B7 ")}

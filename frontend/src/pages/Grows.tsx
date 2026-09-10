@@ -5,6 +5,7 @@ import { getGrows, createGrow, deleteGrow, getGrowCoverUrl, getGrowImages, getGr
 import { getStrains } from "../api/strains";
 import type { Grow, GrowImage, Strain } from "../types";
 import ConfirmModal from "../components/ConfirmModal";
+import GrowProgress from "../components/GrowProgress";
 
 export default function Grows() {
   const { t } = useTranslation();
@@ -230,6 +231,7 @@ export default function Grows() {
                     <div className="meta">
                       {g.start_date}{g.end_date ? ` - ${g.end_date}` : ""}
                     </div>
+                    <GrowProgress grow={g} />
                     {(g.medium || g.lighting) && (
                       <div className="meta" style={{ color: "var(--neutral-500)" }}>
                         {[g.medium, g.lighting].filter(Boolean).join(" \u00B7 ")}
