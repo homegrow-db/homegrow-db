@@ -40,6 +40,25 @@ export function growProgressDays(grow: {
   return { day: Math.max(0, day), total };
 }
 
+export function growCurrentWeek(grow: {
+  start_date: string;
+  end_date: string | null;
+  status: string;
+}): number | null {
+  if (!grow.start_date || grow.status === "completed") return null;
+
+  const parseDay = (s: string) => new Date(`${s}T00:00:00Z`).getTime();
+  const start = parseDay(grow.start_date);
+  const end = grow.end_date ? parseDay(grow.end_date) : start + DEFAULT_GROW_DAYS * DAY_MS;
+  const total = Math.round((end - start) / DAY_MS);
+  if (total <= 0) return null;
+
+  const today = parseDay(new Date().toISOString().slice(0, 10));
+  const day = Math.floor((today - start) / DAY_MS);
+  if (day < 0) return null;
+  return Math.min(Math.floor(day / 7) + 1, Math.ceil(total / 7));
+}
+
 export function growEstimatedEnd(grow: {
   start_date: string;
   end_date: string | null;

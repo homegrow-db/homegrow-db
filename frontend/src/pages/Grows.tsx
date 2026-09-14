@@ -5,7 +5,7 @@ import { getGrows, createGrow, deleteGrow, getGrowCoverUrl, getGrowImages, getGr
 import { getStrains } from "../api/strains";
 import type { Grow, GrowImage, Strain } from "../types";
 import ConfirmModal from "../components/ConfirmModal";
-import GrowProgress, { growEstimatedEnd } from "../components/GrowProgress";
+import GrowProgress, { growEstimatedEnd, growCurrentWeek } from "../components/GrowProgress";
 
 export default function Grows() {
   const { t } = useTranslation();
@@ -230,6 +230,7 @@ export default function Grows() {
                     <div className="meta">{strainMap.get(g.strain_id) ?? g.strain_id}</div>
                     <div className="meta">
                       {g.start_date}{g.end_date ? ` - ${g.end_date}` : growEstimatedEnd(g) ? ` - ~${growEstimatedEnd(g)}` : ""}
+                      {growCurrentWeek(g) != null && ` (${t("grows.week_number", { number: growCurrentWeek(g) })})`}
                     </div>
                     <GrowProgress grow={g} />
                     {(g.medium || g.lighting) && (
