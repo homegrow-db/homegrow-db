@@ -217,7 +217,7 @@
     "harvest_date": "Harvest date",
     "weeks": "Weeks",
     "week": "Week",
-    "week_number": "Week {number}",
+    "week_number": "Week {{number}}",
     "add_week": "Add week",
     "edit_week": "Edit week entry",
     "fertilizer": "Fertilizer",

@@ -217,7 +217,7 @@
     "harvest_date": "Erntedatum",
     "weeks": "Wochen",
     "week": "Woche",
-    "week_number": "Woche {number}",
+    "week_number": "Woche {{number}}",
     "add_week": "Woche hinzufügen",
     "edit_week": "Wocheneintrag bearbeiten",
     "fertilizer": "Dünger",

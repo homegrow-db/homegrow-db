@@ -143,7 +143,7 @@ function exportGrowPDF(
 
     autoTable(doc, {
       startY: (doc as any).lastAutoTable.finalY + 22,
-      head: [[t("grows.week"), t("grows.week_number").replace("{number}", ""), t("grows.notes"), t("grows.fertilizer"), t("grows.watering"), t("grows.light_intensity"), t("grows.light_cycle"), t("grows.temperature")]],
+      head: [[t("grows.week"), t("grows.notes"), t("grows.fertilizer"), t("grows.watering"), t("grows.light_intensity"), t("grows.light_cycle"), t("grows.temperature")]],
       body: weeks.map((w) => [
         `${w.week_number}.`,
         w.notes ?? "-",
